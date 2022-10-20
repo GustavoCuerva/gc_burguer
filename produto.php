@@ -20,7 +20,7 @@
             <img src="img/Logo2.png" class="logo">
             <ul>
                 <a href="index.php"><li>INICIO</li></a>
-                <a href="reservas.php"><li>RESERVAS</li></a>
+                <a href="reservas.php"><li>RESERVAR</li></a>
             </ul>
             <ul>
                 <a href="menu.php"><li>MENU</li></a>

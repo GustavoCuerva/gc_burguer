@@ -1,5 +1,6 @@
 <?php
     include_once("../config/conexao.php");
+    include_once("../config/classes.php");
 
     if (!isset($_SESSION['usuario'])) {
         header("location: ../index.php");
@@ -9,6 +10,7 @@
           header("Location: ../index.php");
       }
 
+      $mask = new Processos;
 
     $filtro = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRIPPED);
     $hoje = date("Y-m-d");
@@ -64,6 +66,7 @@
 </head>
 <body>
     
+<a href="painel.php"><img src="../icons/backward-svgrepo-com.svg" style="margin-top: 30px; margin-left:30px;" width="25px"></a>
     <main class="corpo">
 
         <form action="#" method="post" class="filtro">
@@ -77,23 +80,24 @@
 
         <section class="secao_reservas">
             <h2 class="h2-reservas">Reservas</h2>
+            <div class="reservas">
             <?php
           foreach ($reservas as $key => $value) {
             $consulta_usuario = $conexao->query("SELECT * FROM usuarios WHERE id = ".$value['id_usuario']);
             $usuario = $consulta_usuario->fetch(PDO::FETCH_ASSOC);
             ?>
-            <div class="reservas">
+            
               <div class="box-reserva">
-                          <h2><?=$value['data_reserva']?> - <?=$value['horario']?></h2>
+                          <h2><?=$mask->mask_data($value['data_reserva'])?> - <?=$mask->mask_hora($value['horario'])?></h2>
                           <p><strong>Status:</strong> <span class="status"><?=$status[$value['status']]?></span></p>
                           <p><strong>Detalhes:</strong> <span class="detalhes"><?=$value['mesa']?></span> | <span class="detalhes"><?=$value['quantidade']?> Pessoas</span></p>
                           <p><strong>Nome:</strong> <span class="detalhes"><?=$usuario['nome']?></span></p>
-                  </div>
-              </div>
-            </div>
+                </div>
+            
             <?php
           }
         ?>
+        </div>
         </section><!--Reservas-->
 
         </main>

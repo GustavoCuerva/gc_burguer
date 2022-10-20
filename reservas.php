@@ -24,7 +24,7 @@
             <img src="img/Logo2.png" class="logo">
             <ul>
                 <a href="index.php"><li>INICIO</li></a>
-                <a href="reservas.php"><li>RESERVAS</li></a>
+                <a href="reservas.php"><li>RESERVAR</li></a>
             </ul>
             <ul>
                 <a href="menu.php"><li>MENU</li></a>
@@ -61,7 +61,10 @@
                     <img src="img/Logo2.png" alt="">
                 </div>
                 <div>
-                    <form action="#" method="post" class="form_reserva">
+                    <?php
+                        include("processos/msg.php");
+                    ?>
+                    <form action="processos/proc_reservas.php" method="post" class="form_reserva">
                         <div>
                             <label for="unidade">Unidade:</label>
                             <input type="text" name="unidade" value="Avenida Paulista 2222 - São Paulo-SP" disabled>
@@ -90,7 +93,7 @@
                         </div>
 
                         <div>
-                            <input type="submit" value="Reservar">
+                            <input type="submit" name="reservar" value="Reservar">
                         </div>
                     </form>
                 </div>

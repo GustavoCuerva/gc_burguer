@@ -9,7 +9,8 @@
     padding: 30px;
     border-radius: 50px;
     overflow: hidden;
-    width: 70%;
+    max-width: 98%;
+    width: 900px;
     margin: 70px auto;
     text-align: center;
     vertical-align: middle;

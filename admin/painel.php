@@ -1,5 +1,6 @@
 <?php
     include_once("../config/conexao.php");
+    include_once("../config/classes.php");
 
     if (!isset($_SESSION['usuario'])) {
       header("location: ../index.php");
@@ -8,6 +9,8 @@
     if ($_SESSION['permissao'] != 1) {
         header("Location: ../index.php");
     }
+
+    $mask = new Processos;
 
     // CONSULTA DAS CATEGORIAS
     $consulta = $conexao->query("SELECT * FROM categoria");
@@ -28,7 +31,7 @@
 
     // CONSULTA RESERVAS DE HOJE
     $hoje = date("Y-m-d");
-    $consulta_reservas_hoje = $conexao->query("SELECT * FROM reservas WHERE data_reserva = ".$hoje." AND status = 0");
+    $consulta_reservas_hoje = $conexao->query("SELECT * FROM reservas WHERE data_reserva = '".$hoje."' AND status = 0");
     $reservas_hoje = $consulta_reservas_hoje->fetchAll(PDO::FETCH_ASSOC);
 
     $quantidade_hoje = 0;
@@ -112,32 +115,28 @@
     <section class="secao_reservas">
         <h2 class="h2-reservas">Reservas</h2>
 
+        <div class="reservas">
         <?php
+
+        // CONSULTA RESERVAS
+        $consulta_reservas = $conexao->query("SELECT * FROM reservas ORDER BY status ASC LIMIT 3");
+        $reservas = $consulta_reservas->fetchAll(PDO::FETCH_ASSOC);
+
           foreach ($reservas as $key => $value) {
             $consulta_usuario = $conexao->query("SELECT * FROM usuarios WHERE id = ".$value['id_usuario']);
             $usuario = $consulta_usuario->fetch(PDO::FETCH_ASSOC);
             ?>
-            <div class="reservas">
+            
               <div class="box-reserva">
-                          <h2><?=$value['data_reserva']?> - <?=$value['horario']?></h2>
+                          <h2><?=$mask->mask_data($value['data_reserva'])?> - <?=$mask->mask_hora($value['horario'])?></h2>
                           <p><strong>Status:</strong> <span class="status"><?=$status[$value['status']]?></span></p>
                           <p><strong>Detalhes:</strong> <span class="detalhes"><?=$value['mesa']?></span> | <span class="detalhes"><?=$value['quantidade']?> Pessoas</span></p>
                           <p><strong>Nome:</strong> <span class="detalhes"><?=$usuario['nome']?></span></p>
-                  </div>
               </div>
-            </div>
+            
             <?php
           }
         ?>
-
-        <div class="reservas">
-            <div class="box-reserva">
-                        <h2>14/10 - 18:00</h2>
-                        <p><strong>Status:</strong> <span class="status">Confirmada</span></p>
-                        <p><strong>Detalhes:</strong> <span class="detalhes">Mesa 2</span> | <span class="detalhes">6 Pessoas</span></p>
-                        <p><strong>Nome:</strong> <span class="detalhes">Gustavo Candido Cuerva</span></p>
-                </div>
-            </div>
         </div>
         <a href="admin_reservas.php">Ver mais</a>
     </section><!--Reservas-->

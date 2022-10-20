@@ -23,7 +23,19 @@
             $nome_certo = strtolower($nome_certo);
 
             return $nome_certo;
-        }    
+        }
+        
+        public function mask_data($data_inicial){
+            $data = date("d/m/y" , strtotime($data_inicial));
+
+            return $data;
+        }
+
+        public function mask_hora($hora_inicial){
+            $hora = date("H:i" , strtotime($hora_inicial));
+
+            return $hora;
+        }
     }
     
 
