@@ -1,0 +1,400 @@
+body{
+    background-color: rgb(249, 249, 249);
+}
+
+.dados_principais{
+    margin: 100px auto;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dados_principais div{
+    margin: auto;
+    width: 400px;
+    background-color: white;
+    height: 300px;
+    border-radius: 10px;
+    border: 3px solid rgba(94, 94, 94, 0.045);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    background: linear-gradient( #ff9a00, #ff990049);
+}
+
+.dados_principais h3{
+    text-align: center;
+    width: 100%;
+    font-size: 120px;
+    font-weight: 100;
+}
+
+.produtos{
+    width: 90%;
+    margin: auto;
+}
+
+.produtos>a, .categoria{
+    flex: 1;
+    margin: 5px;
+    text-align: center;
+    height: 150px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    color: white;
+    background-position: bottom;
+    background-size: cover;
+}
+
+.produtos>a:hover{
+    transition: 1s;
+    opacity: 90%;
+}
+
+.categorias{
+    display: block;
+    height: auto;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.categoria{
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+    background-position: center;
+    align-items: center;
+    justify-content: end;
+}
+
+.add_categoria{
+    margin: 30px;
+}
+
+.add_categoria form{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.itens_form_categoria{
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.itens_form_categoria label{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.add_categoria input{
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.add_categoria input[type=text]{
+    border: 1px solid #ccc;
+    color: #6d6d6d;
+}
+
+.add_categoria input[type=submit]{
+    border: none;
+    color: white;
+    background-color: #ff9a00;
+}
+
+.categorias a{
+    color: white;
+}
+
+.botoes{
+    margin: 30px;
+    color: #fff;
+    width: 100%;
+    opacity: 0;
+    transition: 1s;
+}
+
+.botao{
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+}
+
+.editar{
+    background-color: rgb(17, 17, 185);
+}
+
+.categoria:hover .botoes{
+    opacity: 1;
+}
+
+/* Informações empresa */
+
+.informacoes_empresa{
+    margin: 100px 0;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    background-image: url("../img/template_hamburguer3.png");
+    background-position: top;
+    background-size: cover;
+    color: #fff;
+    font-size: 20px;
+    flex-wrap: wrap;
+}
+
+.informacoes_empresa div{
+    margin: auto;
+}
+
+.informacoes_empresa a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 20px 30px;
+    background-color: #ff9a00;
+}
+
+/* Reservas */
+
+.h2-reservas{
+    text-align: center;
+    color: rgb(80, 80, 80);
+    font-size: 30px;
+}
+
+.reservas{
+    display: flex;
+    margin: 10px auto;
+    width: 90%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.box-reserva{
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid rgb(0 0 0 / 4%);
+    text-align: left;
+}
+
+.box-reserva h2, .box-reserva p{
+    margin: 5px 0;
+}
+
+.secao_reservas{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* EDITA CRIA PRODUTO */
+
+.admin_produto{
+    background-image: url("../img/template_hamburguer2.png");
+    background-position: bottom;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+}
+
+.form_produto{
+    margin: 20px auto;
+    max-width: 90%;
+    width: 900px;
+    min-height: 600px;
+    height: auto;
+    border-radius: 20px;
+    background-color: rgb(255 255 255 / 72%);
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form_produto form{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.box-form{
+    text-align: left;
+    font-size: 20px;
+    display: flex;
+    margin: 12px;
+    align-items: center;
+}
+
+.form_produto label, 
+.form_produto input, 
+.form_produto select,
+.form_produto textarea{
+    flex: 1;
+    width: 100%;
+}
+
+.form_produto input, 
+.form_produto select,
+.form_produto textarea,
+.del{
+    padding: 5px 10px;
+    font-size: 18px;
+    color: rgb(93, 93, 93);
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+.form_produto textarea{
+    resize: none;
+    height: 150px;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+.img_produto{
+    width: 400px;
+    width: 400px;
+    margin: 30px;
+}
+
+.container-form{
+    min-width: 380px;
+}
+
+.form_produto label[for=imagem]{
+    text-align: center;
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: rgba(51, 78, 141, 0.793);
+    cursor: pointer;
+}
+
+.btn{
+    border: none;
+    margin: 10px 0;
+}
+
+.enviar{
+    background-color: #ff9a00;
+}
+
+.excluir{
+    background-color: #c00a0acc;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* INFORMAÇÕES EMPRESA */
+
+.info_empresa{
+    background-image: url("../img/template_hamburguer3.png");
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+.info_empresa form{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    padding-top: 40px;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.info_empresa h2{
+    text-align: center;
+}
+
+.info_empresa div{
+    margin: 20px auto;
+}
+
+.info_empresa input{
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(126, 126, 126);
+}
+
+.info_empresa input[type=submit]{
+    width: 100%;
+    background-color: #ff9a00;
+    cursor: pointer;
+    color: #fff;
+}
+
+.modal_alerta{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.342);
+    z-index: 1;
+}
+
+.modal_alerta div{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    width: 500px;
+}
+
+.modal_alerta p{
+    margin: 30px;
+    text-align: left;
+}
+
+.modal_alerta button,
+.modal_alerta span{
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 20px;
+    margin: auto;
+}

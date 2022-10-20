@@ -1,0 +1,144 @@
+.reserva_body{
+    background-image: url('../img/template_hamburguer2.png'); 
+    background-size:cover; 
+    background-position:bottom;
+}
+
+.reservar{
+    border: 1px solid rgba(0, 0, 0, 0.233);
+    padding: 30px;
+    border-radius: 50px;
+    overflow: hidden;
+    width: 70%;
+    margin: 70px auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.868);
+}
+
+.reservar h2{
+    color: rgb(66, 66, 66);
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.box-reservar{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box-reservar img{
+    max-height: 460px;
+}
+
+.box-reservar>div{
+    flex: 1;
+}
+
+.box-reservar input, .box-reservar select{
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.form_reserva{
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    flex: 4;
+}
+
+.form_reserva div{
+    width: 100%;
+    margin: 20px 0;
+}
+
+.form_reserva input{
+    
+}
+
+input[type=submit]{
+    cursor: pointer;
+    color: white;
+    background-color: #ff9900;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* MINHAS RESERVAS */
+
+.filtrar{
+    margin: 30px auto;
+    width: 80%;
+    padding: 10px;
+    text-align: center;
+}
+
+.filtrar input{
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+}
+
+.filtrar label{
+    font-size: 20px;
+}
+
+.proximas{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}
+
+.proximas h2{
+    margin: 20px;
+    color: #3b3b3b;
+}
+
+.proxima_reservas{
+    border-top: 1px solid #ccc;
+    margin: 0 20px;
+    margin-bottom: 20px;
+}
+
+.proxima_reservas h3{
+    font-size: 30px;
+    color: rgb(112, 112, 112);
+    margin-top: 20px;
+}
+
+.informacoes_reserva{
+    display: flex;
+    align-items: center;
+}
+
+.info{
+    flex: 1;
+}
+
+.informacoes_reserva p{
+    font-size: 20px;
+}
+
+.informacoes_reserva button{
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    color: white;
+    margin-bottom: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.historico_reservas{
+    opacity: 0.5;
+}

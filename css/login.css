@@ -1,0 +1,73 @@
+.body_login{
+    background-image: url("../img/template_hamburguer3.png");
+    background-position: bottom;
+    background-size: cover;
+}
+
+.login{
+    width: 400px;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.947);
+    padding: 20px;
+    text-align: center;
+    border-radius: 30px;
+    max-width: 95%;
+}
+
+.login h2{
+    font-size: 40px;
+    color: rgba(20, 20, 20, 0.815);
+    margin-bottom: 30px;
+}
+
+.login input{
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    color: rgba(20, 20, 20, 0.549);
+}
+
+.login div{
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.login input[type=checkbox]{
+    width: 30px;
+    height: 30px;
+}
+
+.login input[type=submit]{
+    border: none;
+    color: white;
+    font-weight: bolder;
+    background-color: #ff9a00;
+}
+
+.login label{
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.links_login{
+    font-size: 18px;
+}
+
+/* Cadastro */
+
+.cadastro{
+    width: 600px;
+}
+
+.cadastro div{
+    display: flex;
+}
+
+.cadastro input, .cadastro label{
+    flex: 1;
+}

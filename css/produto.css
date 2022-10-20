@@ -1,0 +1,70 @@
+.info-produto{
+    background-color: rgb(252, 252, 252);
+    display: flex;
+    margin: 70px auto;
+    width: 90%;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.info-produto div{
+    margin: 10px;
+}
+
+.img{
+    display: flex;
+    vertical-align: middle;
+}
+
+.img img{
+    margin: auto;
+    width: 100%;
+    border-radius: 50px;
+}
+
+.descricao h2{
+    color: rgb(74, 74, 74);
+    font-size: 50px;
+}
+
+.descricao p{
+    color: rgb(37, 37, 37);
+    font-size: 20px;
+    margin: 5px;
+}
+
+.valor{
+    font-size: 30px;
+    margin: 10px;
+    font-weight: bold;
+    color: rgb(74, 74, 74);
+}
+
+.comprar button{
+    padding: 10px;
+    border: none;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.salvar{
+    background-color: red;
+    cursor: pointer;
+}
+
+.pedir{
+    background-color: blue;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+    .info-produto{
+        flex-wrap: wrap;
+    }
+
+    .comprar{
+        width: 100%;
+    }
+}

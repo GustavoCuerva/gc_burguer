@@ -1,0 +1,446 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+}
+
+header {
+  background-color: black;
+  padding-top: 10px;
+  color: white;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+}
+
+input, select, textarea{
+  outline: none;
+}
+
+input[type=submit]{
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex: wrap;
+  background-color: rgb(45, 45, 45);
+  color: white;
+  overflow: visible;
+  justify-content: center;
+}
+
+.menu ul {
+  margin: auto;
+  display: flex;
+  flex: wrap;
+  list-style: none;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  margin: 8px 16px;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.menu a:hover {
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.logo {
+  width: 170px;
+  height: 170px;
+  display: block;
+  margin: -10px auto;
+  position: absolute;
+}
+
+/* Menu inferior */
+
+.menu-inferior {
+  display: flex;
+  flex: wrap;
+}
+
+.endereco {
+  display: flex;
+  flex: wrap;
+  justify-content: center;
+  flex: 1;
+  margin-top: 10px;
+}
+
+.endereco_rua {
+  margin: auto 0;
+}
+
+.localizacao_img {
+  width: 50px;
+  margin: 0 10px;
+}
+
+/* Menu Usuario */
+
+.menu-usuario {
+    margin: 10px 0;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.menu-usuario img{
+    width: 30px;
+}
+
+.menu-usuario a{
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.pesquisar{
+    font-size: 15px;
+    color: rgb(129, 129, 129);
+    height: 50px;
+    border-radius: 20px;
+    border: none;
+    width: 0px;
+    transition: 1s;
+    z-index: 1;
+}
+
+/* Banner */
+.banner{
+  min-height: 300px;
+  background-image: url('../img/template_hamburguer3.png');
+  background-position: center;
+  background-size: cover;
+  padding: 20px 80px;
+  color: white;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+}
+
+.banner h2{
+  text-align: justify;
+  display: block;
+  font-size: 70px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.748);
+}
+
+.banner hr{
+  margin: 0 40px;
+  height: 200px;
+}
+
+.banner div{
+  display: block;
+  margin: auto;
+}
+
+.banner img{
+  width: 200px;
+  max-width: 20%;
+}
+
+/* MAIN */
+
+main hr{
+  width: 70%;
+  margin: auto;
+}
+
+.destaque{
+  text-align: center;
+  /* margin-bottom: 30px; */
+  margin: 20px;
+  padding: 30px 0;
+}
+
+.destaque h2{
+  font-size: 30px;
+  margin: 20px 0 ;
+  color: #464646;
+}
+
+.produtos{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 40px;
+}
+
+.produtos a{
+  text-decoration: none;
+  color: #000;
+}
+
+.produto{
+  background-color: rgb(253, 253, 253);
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
+  padding-bottom: 20px;
+}
+
+.preco{
+  margin: 10px;
+  font-size: 20px;
+  color: #ff9a00;
+  font-weight: bolder;
+  font-style: italic;
+  background-color: rgb(253, 253, 253);
+  border-radius: 30px;
+}
+
+.produto:hover{
+  background-color: #ff9900d1;
+  color: white;
+  transition: 0.5s;
+  border-radius: 30px;
+}
+
+.produto img{
+  width: 300px;
+  height: 200px;
+  margin: 20px;
+  border-radius: 30px;
+}
+
+.reserva{
+  width: 100%;
+  padding: 50px 130px;
+  background-image: url(../img/template_hamburguer1.png);
+  background-position: bottom;
+  background-size: cover;
+  color: white;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.reserva div, a{
+  margin: auto;
+}
+
+.reserva div{
+  background-color: rgba(0, 0, 0, 0.767);
+  padding: 20px;
+}
+
+.reserva h2{
+  font-size: 50px;
+}
+
+.reserva p{
+  font-style: italic;
+}
+
+.reserva a{
+  color: white;
+  font-size: 30px;
+  background-color: #ff9900;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px 30px;
+  border-radius: 5px;
+}
+
+.produto_novo{
+  margin: 20px;
+}
+
+.produto_novo img{
+  max-width: 90%;
+  width: 600px;
+  height: max-content;
+}
+
+.avaliacoes{
+  background-color: rgb(252, 252, 252);
+}
+
+.lista-avaliacoes{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.avaliacao img{
+  width: 120px;
+}
+
+.avaliacao{
+  flex: 1;
+  margin: 20px;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 0 20px 20px 20px;
+  border-radius: 20px;
+}
+
+.avaliacao p.comentario{
+  text-align: left;
+}
+
+.username{
+  margin-bottom: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.avaliar{
+  max-width: 90%;
+  width: 600px;
+  margin: auto;
+}
+
+.avaliar input, textarea{
+  width: 100%;
+  margin: 10px;
+}
+
+.avaliar textarea{
+  height: 400px;
+  resize: none;
+  padding: 20px;
+  font-size: 15px;
+  color: #464646;
+}
+
+.enviar{
+  padding: 10px;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+/* Footer */
+
+footer{
+  background-color: #000;
+  color: white;
+}
+
+.itens-rodape{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.itens-rodape > div{
+  flex: 1
+}
+
+.sobre-nos{
+  flex: 1;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sobre-nos a{
+  color: white;
+  font-size: 20px;
+  /* margin: auto 30px; */
+  text-decoration: none;
+}
+
+.social-midia{
+  text-align: center;
+}
+
+.social-midia img{
+  width: 30px;
+  /* margin: 20px 10px; */
+}
+
+.copy{
+  padding: 10px;
+  text-align: center;
+}
+
+@media screen and (min-width: 769px){
+  .menu{
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu ul{
+    overflow: hidden;
+    /* height: 0; */
+    flex-direction: column;
+    text-align: center;
+    z-index: 1;
+    background-color: #000;
+  }
+
+  .menu a{
+    background-color: #464646;
+  }
+
+  .menu{
+    background-color: #000;
+    display: block;
+    height: 170px;
+    overflow: hidden;
+    transition: 1s;
+  }
+
+  .logo{
+    margin: auto;
+    position: relative;
+    cursor: pointer; 
+    animation-name: rotacionar;
+    animation-duration: 1s;    
+  }
+
+  .anim1{
+    animation-name: rotacionar;
+    animation-duration: 1s;
+  }
+
+  .anim2{
+    animation-name: rotacionar;
+    animation-duration: 1s;
+    animation-direction: reverse; 
+  }
+
+  @keyframes rotacionar {
+    form{transform : rotate(0deg);}
+        to{transform: rotate(360deg);}
+  }
+  
+  .banner > h2,.banner>hr,.banner>img{
+    display: none;
+  }
+
+  header{
+    border-bottom-left-radius: 42%;
+    border-bottom-right-radius: 42%;
+  }
+
+  .pesquisar{
+    margin-bottom: 10px;
+  }
+
+}

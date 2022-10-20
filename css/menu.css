@@ -1,0 +1,49 @@
+.filtro{
+    width: 100%;
+    padding-top: 30px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: right;
+}
+
+.filtro select{
+    width: 250px;
+    padding: 10px;
+    font-size: 20px;
+    color: rgb(52, 52, 52);
+    /* margin: auto; */
+    border-radius: 20px;
+}
+
+.produtos_menu{
+    overflow: hidden;
+    height: 329px;
+    transition: 1s;
+}
+
+.mostrar_mais{
+    margin-top: 20px;
+}
+
+.mostrar_mais span{
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.mostrar_mais span:hover{
+    background-color: #ff9a00;
+    color: white;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.add_imagem{
+    width: 50px;
+    margin: 10px 50px;
+}
+
+.cabecalho_produtos{
+    display: flex;
+}
