@@ -17,7 +17,8 @@
 
 .produtos_menu{
     overflow: hidden;
-    height: 329px;
+    max-height: 329px;
+    height: auto;
     transition: 1s;
 }
 

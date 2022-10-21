@@ -1,5 +1,6 @@
 <?php
     include_once("config/conexao.php");
+    include_once("config/automatico.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt">

@@ -12,5 +12,6 @@
         echo "<h1>Erro ao se conectar, contacte o suporte</h1>";
     }
 
+    date_default_timezone_set('America/Sao_Paulo');
     session_start();
 ?>

@@ -1,5 +1,37 @@
 <?php
     include_once("config/conexao.php");
+    include_once("config/automatico.php");
+
+    // Verificando se existe algum produto
+    $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRIPPED);
+
+    if (!isset($get['p'])) {
+        header("location: menu.php");
+    }
+
+    // Descriptografando
+    $consulta = $conexao->query("SELECT * FROM produtos");
+    $produtos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($produtos as $key => $prod) {
+        $md5 = md5($prod['id']);
+        if ($md5 == $get['p']) {
+            // Resgatando valores
+            $id = $prod['id'];
+            $nome = $prod['nome'];
+            $categoria = $prod['categoria'];
+            $id_categoria = $prod['id_categoria'];
+            $valor = $prod['valor'];
+            $descricao = $prod['descricao'];
+            $img = $prod['imagem'];
+            break;
+        }
+    }
+
+    if (!isset($id)) {
+        // Nenhum produto encontrado
+        header("location: menu.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -54,17 +86,33 @@
         <section class="box-produto">
             <div class="info-produto">
                 <div class="img">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
+                    <img src="<?=$img?>" alt="">
                 </div>
                 <div class="descricao">
-                    <h2>Compre 1 e Leve 2</h2>
-                    <p>Na compra de um xBacon escolha entre um xPicanha, xSalada ou Chiquem Junior para levar de graça</p>
-                    <p>Acompanhamentos: Sem acompanhamento</p>
+                    <h2><?=$nome?></h2>
+                    <p><?=$descricao?></p>
                 </div>
                 <div class="comprar">
-                    <p class="valor">R$30,58</p>
-                    <button class="salvar">Salvar</button>
-                    <button class="pedir">Pedir</button>
+                    <p class="valor">R$<?=$valor?></p>
+                    <?php
+                        include("processos/msg.php");
+
+                        // VERIFICAR SE JÁ NÃO ESTÁ SALVO
+                        $consulta = $conexao->prepare("SELECT * FROM salvos WHERE id_usuario = ".$_SESSION['id']." AND id_produto = ?");
+                        $consulta->execute(array($id));
+                        if ($consulta->rowCount()>0) {
+                            // Produto já salvo
+                            ?>
+                        <a href="processos/proc_salvar.php?r=<?=$get['p']?>"><button class="salvar">Remover dos Salvos</button></a>
+                            <?php
+                        }else{
+                            ?>
+                        <a href="processos/proc_salvar.php?s=<?=$get['p']?>"><button class="salvar">Salvar</button></a>
+                            <?php
+                        }
+                    ?>
+                    
+                    <button class="pedir" onclick="alerta();">Pedir</button>
                 </div>
             </div>
         </section><!--Informações do produto-->
@@ -72,36 +120,30 @@
         <section class="itens_semelhantes destaque">
             <h2>Semelhantes</h2>
 
-            <div class="produtos produtos_menu ">
-                <a href="produto.php">
-                    <div class="produto produto_menu ">
-                        <img src="img/produtos/2hambuguer.jpg" alt="">
-                        <h3>Peça 1 Coma 2</h3>
-                        <p class="preco">R$ 30,58</p>
-                    </div>
-                </a>
+            <?php
+                $consulta_produtos = $conexao->query("SELECT * FROM produtos WHERE id_categoria = ".$id_categoria);
+                $produtos = $consulta_produtos->fetchAll(PDO::FETCH_ASSOC);
+            ?>
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo2.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+            <div class="produtos produtos_menu sugestoes">
+                <?php
+                    foreach ($produtos as $key => $prod) {
+                    ?>
+                    <a href="produto.php?p=<?=md5($prod['id'])?>">
+                            <div class="produto produto_menu ">
+                            <img src="<?=$prod['imagem']?>" alt="">
+                            <h3><?=$prod['nome']?></h3>
+                            <p class="preco">R$ <?=$prod['valor']?></p>
+                        </div>
+                    </a>
+                    <?php
+                    }
+                ?>
+            </div>
 
         </section><!--Semelhantes-->
 
-        <section class="para_voce destaque">
+        <!-- <section class="para_voce destaque">
             <h2>Sugestões para você</h2>
 
             <div class="produtos produtos_menu ">
@@ -131,7 +173,7 @@
                     <p class="preco">R$ 30,58</p>
                 </div>
 
-        </section><!--Para você-->
+        </section>Para você -->
     </main><!--Corpor-->
     <footer>
         <div class="itens-rodape">

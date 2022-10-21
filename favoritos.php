@@ -1,5 +1,18 @@
 <?php
     include_once("config/conexao.php");
+    include_once("config/automatico.php");
+
+    if (!isset($_SESSION['usuario'])) {
+        header('Location: login.php');
+    }
+
+    // Consultas
+    $consulta_categorias = $conexao->query("SELECT * FROM categoria");
+    $cat = $consulta_categorias->fetchAll(PDO::FETCH_ASSOC);
+
+    // SALVOS
+    $consulta_salvos = $conexao->query("SELECT * FROM salvos WHERE id_usuario = ".$_SESSION['id']);
+    $salvos = $consulta_salvos->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -62,119 +75,65 @@
 
         <h2 style="text-align: center; font-size: 30px; color: #787878; font-weight: 900;">MEUS FAVORITOS</h2>
 
-        <section class="destaque destaque_menu">
-            <h2>Combos</h2>
+        <?php
+            foreach ($cat as $key => $categorias) {
 
-            <div class="produtos produtos_menu ">
-                <a href="produto.php">
-                    <div class="produto produto_menu ">
-                        <img src="img/produtos/2hambuguer.jpg" alt="">
-                        <h3>Peça 1 Coma 2</h3>
-                        <p class="preco">R$ 30,58</p>
-                    </div>
-                </a>
+                // Buscando produtos
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                $consulta_produtos = $conexao->query("SELECT * FROM produtos WHERE id_categoria = ".$categorias['id_categoria']);
+                $produtos = $consulta_produtos->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                    <section class="destaque destaque_menu">
+                        <h2><?=$categorias['categoria']?></h2>
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo2.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                        <div class="produtos produtos_menu ">
+                            <?php
+                            // Produtos
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                        if ($consulta_produtos->rowCount()>0) {
+                            $cont = 0;
+                            foreach ($produtos as $i => $prod) {
+                                foreach ($salvos as $j => $fav) {
+                                    // Verificando se produto está salvo
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                                    if ($fav['id_produto'] == $prod['id']) {
+                                        // Produto está salvo
+                                        ?>
+                                    <a href="produto.php?p=<?=md5($prod['id'])?>">
+                                        <div class="produto produto_menu ">
+                                            <img src="<?=$prod['imagem']?>" alt="">
+                                            <h3><?=$prod['nome']?></h3>
+                                            <p class="preco">R$ <?=$prod['valor']?></p>
+                                        </div>
+                                    </a>
+                                        <?php
+                                        $cont++;
+                                        break;
+                                    }
+                                }
+                            }
 
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/combo2.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-            </div>
-            <p class="mostrar_mais"><span onclick="mostrar(0)">Mostrar Mais</span></p>
-        </section><!--Combos-->
-
-        <hr>
-
-        <section class="destaque destaque_menu">
-            <h2>Lanches</h2>
-            <div class="produtos produtos_menu ">
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer1.png" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer2.png" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer3.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer4.png" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer1.png" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer2.png" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer3.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-
-                <div class="produto produto_menu ">
-                    <img src="img/produtos/hamburguer4.png" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                            if ($cont==0) {
+                                ?>
+                                <h1 style="color:#ccc;">Sem resultados</h1>
+                                <?php
+                            }
                 
-            </div>
-            <p class="mostrar_mais"><span onclick="mostrar(1)">Mostrar Mais</span></p>
-        </section><!--Lanches-->
+                        }else{
+                           ?>
+                                <h1 style="color:#ccc;">Sem resultados</h1>
+                            
+                           <?php
+                        }
+                            ?>
+                    </section>
+                    
+                    <p class="mostrar_mais" style="width: 100%; text-align:center; margin: 30px auto;"><span onclick="mostrar(<?=$key?>)">Mostrar Mais</span></p>
+                        
+                    <hr>
+                <?php
+            }
+        ?>
     </main><!--Corpor-->
     <footer>
         <div class="itens-rodape">

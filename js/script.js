@@ -53,11 +53,11 @@ function mostrar(i) {
   var div = document.querySelectorAll(".produtos_menu")[i];
   var btn = document.querySelectorAll(".mostrar_mais")[i];
 
-  if (div.style.height == "auto") {
-    div.style.height = "329px";
+  if (div.style.maxHeight == "100%") {
+    div.style.maxHeight = "329px";
     btn.innerHTML = "<span onclick='mostrar(" + i + ")'>Mostrar Mais</span>";
   } else {
-    div.style.height = "auto";
+    div.style.maxHeight = "100%";
     btn.innerHTML = "<span onclick='mostrar(" + i + ")'>Mostrar Menos</span>";
   }
 }
@@ -106,4 +106,9 @@ function filtro_categorias() {
 function filtro_reservas(i) {
   // c = document.getElementById("filtro").value;
   window.location.href = "admin_reservas.php?f="+i;
+}
+
+// FUNÇÃO INDISPONIVEL
+function alerta(){
+  alert("Função ainda indisponivel");
 }

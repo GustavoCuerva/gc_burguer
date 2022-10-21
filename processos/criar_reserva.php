@@ -76,7 +76,7 @@
             if ($reservar->execute(array($_SESSION['id'], $data, $hora, $quantidade, $data_cadastro))) {
                 
                 // Sucesso
-                $_SESSION['msg'] = "<p style='color: green'>Reserva efetuada, você tem até 24hrs para confirma-la</p>";
+                $_SESSION['msg'] = "<p style='color: green'>Reserva efetuada, a confirme em suas reservas</p>";
                 header("location: ../reservas.php");
             }else{
 

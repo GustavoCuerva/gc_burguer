@@ -1,5 +1,49 @@
 <?php
     include_once("config/conexao.php");
+    include_once("config/automatico.php");
+    include_once("config/classes.php");
+
+    if (!isset($_SESSION['usuario'])) {
+        header("location: login.php");
+    }
+
+    $mask = new Processos;
+    $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
+
+    $data_final = "";
+    $data_inicial = "";
+
+    /* CONSULTAS */
+    if (!isset($post['buscar'])) {
+        // Consulta padrão
+        $consulta = $conexao->query("SELECT * FROM reservas WHERE id_usuario = ".$_SESSION['id']);
+        $tudo = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+        $consulta_proximas = $conexao->query("SELECT * FROM reservas WHERE status < 2 and id_usuario = ".$_SESSION['id']);
+        $proximas = $consulta_proximas->fetchAll(PDO::FETCH_ASSOC);
+
+        $consulta_hitorico = $conexao->query("SELECT * FROM reservas WHERE status > 1 and id_usuario = ".$_SESSION['id']);
+        $historico = $consulta_hitorico->fetchAll(PDO::FETCH_ASSOC);
+    }else{
+        // Consulta com pesquisa
+
+        $data_inicial = date("Y-m-d", strtotime($post['data_inicial']));
+        $data_final = date("Y-m-d", strtotime($post['data_final']));
+
+        $consulta = $conexao->prepare("SELECT * FROM reservas WHERE id_usuario = ".$_SESSION['id']." AND data_reserva BETWEEN ? and ?");
+        $consulta->execute(array($data_inicial, $data_final));
+        $tudo = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+        $consulta_proximas = $conexao->prepare("SELECT * FROM reservas WHERE status < 2 and id_usuario = ".$_SESSION['id']." AND data_reserva BETWEEN ? and ?");
+        $consulta_proximas->execute(array($data_inicial, $data_final));
+        $proximas = $consulta_proximas->fetchAll(PDO::FETCH_ASSOC);
+
+        $consulta_hitorico = $conexao->prepare("SELECT * FROM reservas WHERE status > 1 and id_usuario = ".$_SESSION['id']." AND data_reserva BETWEEN ? and ?");
+        $consulta_hitorico->execute(array($data_inicial, $data_final));
+        $historico = $consulta_hitorico->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    $status = array("Confirmada", "Aguardando Confirmação", "Vencida", "Cancelada");
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -54,49 +98,85 @@
                 <form action="#" method="post">
                     
                     <label for="data_inicial">Data inicial: </label>
-                    <input type="date" name="data_inicial" required>
+                    <input type="date" name="data_inicial" value="<?=$data_inicial?>" required>
                     
                     <label for="data_final">Data final: </label>
-                    <input type="date" name="data_final" required>
+                    <input type="date" name="data_final" value="<?=$data_final?>" required>
 
-                    <input type="submit" value="Buscar">
+                    <input type="submit" name="buscar" value="Buscar">
                 </form>
             </div>
         </section><!--Filtrar-->
 
         <section class="proximas">
+            <?php
+                include("processos/msg.php");
+            ?>
             <h2>Próximas Reservas</h2>
-            <div class="proxima_reservas">
+            
                 
-                <h3>11/10 - 22:00</h3>
+                <?php
 
-                <div class="informacoes_reserva">
-                    <div class="info">
-                        <p><strong>Status:</strong> <span class="status">Confirmada</span></p>
-                        <p><strong>Detalhes:</strong> <span class="detalhes">Mesa 2</span> | <span class="detalhes">6 Pessoas</span></p>
-                    </div>
+                    if ($consulta_proximas->rowCount() <= 0) {
+                        echo "<div class='proxima_reservas'><h1 style='text-aling:center; color:#ccc; margin: 20px auto;'>Sem Reservas</h1></div>";
+                    }else{
+                        foreach ($proximas as $key => $value) {
+                            ?>
+                            <div class="proxima_reservas">
+                            <h3><?=$mask->mask_data($value['data_reserva'])?> - <?=$mask->mask_hora($value['horario'])?></h3>
+                                <div class="informacoes_reserva">
+                                    <div class="info">
+                                        <p><strong>Status:</strong> <span class="status"><?=$status[$value['status']]?></span></p>
+                                        <p><strong>Detalhes:</strong> <span class="detalhes">Mesa <?=$value['mesa']?></span> | <span class="detalhes"><?=$value['quantidade']?> Pessoas</span></p>
+                                    </div>
 
-                    <div class="btns">
-                        <button style="background-color: rgba(2, 2, 203, 0.685);">Reenviar informarções por email</button>
-                        <button style="background-color: rgba(209, 7, 7, 0.836);">Cancelar</button>
-                    </div>
-                </div>
-            </div>
+                                    <div class="btns">
+                                        <?php
+                                            if ($value['status'] == 0) {//Reserva confirmada
+                                                ?>
+                                                <button style="background-color: rgba(2, 2, 203, 0.685);" onclick="alerta();">Reenviar informarções por email</button>
+                                                <?php
+                                            }else if ($value['status'] == 1) {//Confirmar reserva
+                                                ?>
+                                                <a href="processos/proc_reservas.php?confirma=<?=md5($value['id'])?>"><button style="background-color: rgba(2, 2, 203, 0.685);">Confirmar</button></a>
+                                                <?php
+                                            }
+                                        ?>
+                                                <a href="processos/proc_reservas.php?cancela=<?=md5($value['id'])?>"><button style="background-color: rgba(209, 7, 7, 0.836);">Cancelar</button></a>
+                                    </div>
+                                </div>
+                                </div>
+                            <?php
+                        }
+                    }
+                ?>
+            
         </section><!--Próximas Reservas-->
 
         <section class="historico proximas">
             <h2>Histórico</h2>
-            <div class="historico_reservas proxima_reservas">
-                
-                <h3>11/10 - 22:00</h3>
 
-                <div class="informacoes_reserva">
-                    <div class="info">
-                        <p><strong>Status:</strong> <span class="status">Cancelada</span></p>
-                        <p><strong>Detalhes:</strong> <span class="detalhes">Mesa 2</span> | <span class="detalhes">6 Pessoas</span></p>
-                    </div>
-                </div>
-            </div>
+            <?php
+                if ($consulta_hitorico->rowCount() <= 0) {
+                    echo "<div class='proxima_reservas'><h1 style='text-aling:center;  color:#ccc; margin: 20px auto;'>Sem histórico</h1></div>";
+                }else{
+                    foreach ($historico as $key => $value) {
+                        ?>
+                            <div class="historico_reservas proxima_reservas">
+                    
+                                <h3><?=$mask->mask_data($value['data_reserva'])?> - <?=$mask->mask_hora($value['horario'])?></h3>
+
+                                <div class="informacoes_reserva">
+                                    <div class="info">
+                                        <p><strong>Status:</strong> <span class="status"><?=$status[$value['status']]?></span></p>
+                                        <p><strong>Detalhes:</strong> <span class="detalhes">Mesa <?=$value['mesa']?></span> | <span class="detalhes"><?=$value['quantidade']?> Pessoas</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                }
+            ?>
         </section><!--Histórico Reservas-->
     </main><!--Corpor-->
     <footer class="minhas_reservas_rodape">

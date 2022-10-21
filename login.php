@@ -1,5 +1,6 @@
 <?php
     include_once("config/conexao.php");
+    include_once("config/automatico.php");
 
     if (isset($_SESSION['usuario'])) {
         header("location: index.php");
