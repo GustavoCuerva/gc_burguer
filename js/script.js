@@ -108,6 +108,18 @@ function filtro_reservas(i) {
   window.location.href = "admin_reservas.php?f="+i;
 }
 
+// Filtro salvos
+
+function filtro_salvos(i) {
+  window.location.href = "favoritos.php?f="+i;
+}
+
+// Filtro menu
+
+function filtro_menu(i) {
+  window.location.href = "menu.php?f="+i;
+}
+
 // FUNÇÃO INDISPONIVEL
 function alerta(){
   alert("Função ainda indisponivel");

@@ -2,7 +2,29 @@
     include_once("config/conexao.php");
     include_once("config/automatico.php");
 
-    // Consultas
+    $id_categoria = 1;
+
+    $get = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRIPPED);
+
+    if (isset($get['f'])) {
+        // Existe filtro
+        // Consultas
+        $cons_categorias = $conexao->query("SELECT * FROM categoria");
+        $resultado = $cons_categorias->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($resultado as $key => $value) {
+            // Descriptografando
+            $md5 = md5($value['id_categoria']);
+            if($md5 == $get['f']){
+                $id_cat = $value['id_categoria'];
+                $id_categoria = $get['f'];
+                break;
+            }
+        }
+    }
+    
+    
+    // Consultas sem filtro
     $consulta_categorias = $conexao->query("SELECT * FROM categoria");
     $cat = $consulta_categorias->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -56,16 +78,34 @@
     <main class="corpo">
 
         <form action="#" method="post" class="filtro">
-            <select name="filtro" id="filtro">
-                <option value="1">Tudo</option>
-                <option value="2">Combos</option>
-                <option value="3">Lanches</option>
-                <option value="4">Bebidas</option>
-                <option value="5">Sobremesas</option>
+            <select name="filtro" id="filtro" onchange="filtro_menu(this.value)">
+                    <option value="1">Tudo</option>
+                    <?php
+                    foreach ($cat as $key => $categorias) {
+
+                        $selected = "";
+
+                        if ($id_categoria == md5($categorias['id_categoria'])) {
+                            $selected = "selected";
+                        }
+
+                    ?>
+                        <option value="<?=md5($categorias['id_categoria'])?>" <?=$selected?>><?=$categorias['categoria']?></option>
+                    <?php
+                    }
+                    ?>
             </select>
         </form>
 
         <?php
+            // Aplicando filtro
+
+            if ($id_categoria != 1) {
+                // Consulta com filtro
+                $consulta_categorias = $conexao->query("SELECT * FROM categoria WHERE id_categoria = $id_cat");
+                $cat = $consulta_categorias->fetchAll(PDO::FETCH_ASSOC);
+            }
+
             foreach ($cat as $key => $categorias) {
 
                 // Buscando produtos
