@@ -8,14 +8,17 @@
 </head>
 <body>
 <?php
-    include("../config/classes.php");
-    $texto = "Testé sçsdçsa d  ^][sd}[!@ $# %&(&*%2 3 kadm";
+    include("../config/conexao.php");
+    
+    $cont = $conexao->query('SELECT * FROM salvos GROUP BY id_produto ORDER BY COUNT(ID_PRODUTO) DESC');
+    $resultado = $cont->fetchAll(PDO::FETCH_ASSOC);
 
-    $processos = new Processos;
-
-    $nome_certo = $processos->renomeia($texto);
-
-    echo $nome_certo;
+    foreach ($resultado as $key => $value) {
+        echo $value['id_produto']. "<br>";
+        // echo $value['nome'] . "<br>";
+        echo $value['id_salvo']. "<br>";
+        echo "<hr>";
+    }
 
 ?>
 </body>

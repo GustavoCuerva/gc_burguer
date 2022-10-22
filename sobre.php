@@ -43,7 +43,17 @@
                 <input type="search" placeholder="Pesquisar" name="pesquisa" class="pesquisar">
                 <a><img src="icons/search-svgrepo-com.svg" class="lupa" alt=""></a>
                 <a href="favoritos.php"><img src="icons/favorite-svgrepo-com.svg" alt=""></a>
-                <a href="login.php"><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                <?php
+                    if (isset($_SESSION['usuario'])) {//Está logado
+                        ?>
+                    <a><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                        <?php
+                    }else{//Não está logado
+                        ?>
+                    <a href="login.php"><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                        <?php
+                    }
+                ?>
                 <a href="minhas_reservas.php"><img src="icons/menu-svgrepo-com.svg" alt=""></a>
             </div>
         </div><!--Menu inferior-->

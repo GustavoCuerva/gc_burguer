@@ -42,7 +42,17 @@
                 <input type="search" placeholder="Pesquisar" name="pesquisa" class="pesquisar">
                 <a><img src="icons/search-svgrepo-com.svg" class="lupa" alt=""></a>
                 <a href="favoritos.php"><img src="icons/favorite-svgrepo-com.svg" alt=""></a>
-                <a href="login.php"><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                <?php
+                    if (isset($_SESSION['usuario'])) {//Está logado
+                        ?>
+                    <a><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                        <?php
+                    }else{//Não está logado
+                        ?>
+                    <a href="login.php"><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                        <?php
+                    }
+                ?>
                 <a href="minhas_reservas.php"><img src="icons/menu-svgrepo-com.svg" alt=""></a>
             </div>
         </div><!--Menu inferior-->
@@ -58,60 +68,61 @@
         <section class="destaque populares">
             <h2>Nosso lanches favoritos</h2>
             <div class="produtos_populares produtos">
-                <div class="produto produto_popular">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
 
-                <div class="produto produto_popular">
-                    <img src="img/produtos/combo.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                <?php
+                    // FAVORITOS
+                    $consulta_favoritos = $conexao->query("SELECT * FROM salvos GROUP BY id_produto ORDER BY COUNT(ID_PRODUTO) DESC LIMIT 4");
+                    $favoritos = $consulta_favoritos->fetchAll(PDO::FETCH_ASSOC);
 
-                <div class="produto produto_popular">
-                    <img src="img/produtos/combo2.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                    foreach ($favoritos as $key => $value) {
 
-                <div class="produto produto_popular">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                        // Consultando o produto
+
+                        $consulta_produto = $conexao->query("SELECT * FROM produtos WHERE id = ".$value['id_produto']);
+                        $prod = $consulta_produto->fetch(PDO::FETCH_ASSOC);
+                        ?>
+                        <a href="produto.php?p=<?=md5($prod['id'])?>">
+                        <div class="produto produto_popular">
+                            <img src="<?=$prod['imagem']?>" alt="">
+                            <h3><?=$prod['nome']?></h3>
+                            <p class="preco">R$ <?=$prod['valor']?></p>
+                        </div>
+                        </a>
+                        <?php
+                    }
+
+                ?>
             </div>
         </section><!--Itens mais populares-->
 
         <hr>
 
         <section class="destaque promoções">
-            <h2>Aproveite nossas promoções</h2>
+            <h2>Aproveite nossos melhores preços</h2>
             <div class="produtos_populares produtos">
-                <div class="produto produto_promocao">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+            <?php
 
-                <div class="produto produto_promocao">
-                    <img src="img/produtos/combo.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                // Consultando o produto
+                $consulta_preco = $conexao->query("SELECT * FROM produtos ORDER BY valor LIMIT 4");
+                $preco = $consulta_preco->fetchAll(PDO::FETCH_ASSOC);
 
-                <div class="produto produto_promocao">
-                    <img src="img/produtos/combo2.jpg" alt="">
-                    <h3>Combo Hambuguer + Batata + Refri</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+                    foreach ($preco as $key => $prod) {
 
-                <div class="produto produto_promocao">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco promocao-preco">R$ 30,58</p>
-                </div>
+                        
+
+                        
+                        ?>
+                        <a href="produto.php?p=<?=md5($prod['id'])?>">
+                        <div class="produto produto_promocao">
+                            <img src="<?=$prod['imagem']?>" alt="">
+                            <h3><?=$prod['nome']?></h3>
+                            <p class="preco">R$ <?=$prod['valor']?></p>
+                        </div>
+                        </a>
+                        <?php
+                    }
+
+                ?>
             </div>
         </section><!--Itens Em promoção-->
 
@@ -125,18 +136,30 @@
         </section><!--Baner do meio Reserva-->
 
         <section class="novidades destaque">
+
+        <?php
+            // Novidades
+
+            $consulta_novidades = $conexao->query('SELECT * FROM produtos ORDER BY data_cadastro, id ASC LIMIT 2');
+            $novidades = $consulta_novidades->fetchAll(PDO::FETCH_ASSOC);
+        ?>
+
             <h2>Novidades</h2>
             <div class="produtos_novos produtos">
-                <div class="produto produto_novo">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
-                <div class="produto produto_novo">
-                    <img src="img/produtos/2hambuguer.jpg" alt="">
-                    <h3>Peça 1 Coma 2</h3>
-                    <p class="preco">R$ 30,58</p>
-                </div>
+
+            <?php
+            foreach ($novidades as $key => $value) {
+                ?>
+                <a href="produto.php?p=<?=md5($value['id'])?>">
+                    <div class="produto produto_novo">
+                        <img src="<?=$value['imagem']?>" alt="">
+                        <h3><?=$value['nome']?></h3>
+                        <p class="preco">R$ <?=$value['valor']?></p>
+                    </div>
+                </a>
+                <?php
+            }
+            ?>
             </div>
         </section><!--Novidades-->
 
