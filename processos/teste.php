@@ -10,16 +10,24 @@
 <?php
     include("../config/conexao.php");
     
-    $cont = $conexao->query('SELECT * FROM salvos GROUP BY id_produto ORDER BY COUNT(ID_PRODUTO) DESC');
-    $resultado = $cont->fetchAll(PDO::FETCH_ASSOC);
+    // $cont = $conexao->query('SELECT * FROM salvos GROUP BY id_produto ORDER BY COUNT(ID_PRODUTO) DESC');
+    // $resultado = $cont->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($resultado as $key => $value) {
-        echo $value['id_produto']. "<br>";
-        // echo $value['nome'] . "<br>";
-        echo $value['id_salvo']. "<br>";
-        echo "<hr>";
-    }
+    // foreach ($resultado as $key => $value) {
+    //     echo $value['id_produto']. "<br>";
+    //     // echo $value['nome'] . "<br>";
+    //     echo $value['id_salvo']. "<br>";
+    //     echo "<hr>";
+    // }
+
+    $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
+
+    echo $post['tel'];
 
 ?>
+<form action="#" method="post">
+    <input type="tel" name="tel" id="">
+    <input type="submit" value="Enviar">
+</form>
 </body>
 </html>

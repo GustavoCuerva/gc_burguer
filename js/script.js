@@ -33,6 +33,20 @@ botao_menu.addEventListener("click", () => {
   }
 });
 
+// MOSTRAR OPCOES DO MENU
+function mostrar_opc_usuario() {
+  var opc_usuario = document.querySelector(".opc_usuario");
+  var fechar = document.querySelector(".fechar");
+
+  if (opc_usuario.style.display == 'flex') {
+    opc_usuario.style.display = 'none';
+    fechar.style.display = 'none';
+  }else if (opc_usuario.style.display == 'none') {
+    opc_usuario.style.display = 'flex';
+    fechar.style.display = 'block';
+  }
+}
+
 // Mostrar pesquisar
 
 var pesquisa = document.querySelector(".pesquisar");
@@ -123,4 +137,14 @@ function filtro_menu(i) {
 // FUNÇÃO INDISPONIVEL
 function alerta(){
   alert("Função ainda indisponivel");
+}
+
+// Mostrar opção de excluir conta
+function mostrar_excluir() {
+  var del = document.querySelector(".div_excluir");
+  if (del.style.display == 'none') {
+    del.style.display = 'block';
+  }else{
+    del.style.display = 'none';
+  }
 }

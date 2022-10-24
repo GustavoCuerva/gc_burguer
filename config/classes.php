@@ -5,10 +5,6 @@
         header("location: ../index.php");
     }
 
-    if ($_SESSION['permissao'] != 1) {
-        header("Location: ../index.php");
-    }
-
     class Processos{
         public function renomeia($nome){
             //Substituir os caracteres especiais

@@ -1,0 +1,71 @@
+categoria
+	id_categoria
+	categoria
+	nome_categoria
+	img
+	data_cadastro
+
+inforacoes_hamburgueiria
+	id
+	horario_inicio
+	horario_fim
+	endereco
+	capacidade
+	mesas
+
+produtos
+	id
+	id_categoria
+	categoria
+	nome
+	nome_produto
+	descricao
+	imagem
+	valor
+	data_cadastro
+
+reservas
+	id
+	id_usuario
+	data_reserva
+	horario
+	quantidade
+	mesa
+	status
+	data_cadasto
+
+
+salvos
+	id_salvo
+	id_usuario
+	id_produto
+	data
+
+usuarios
+	id
+	nome
+	email
+	telefone
+	senha
+	permissao
+	data_cadastro
+
+CREATE TABLE `gc_burguer`.`usuarios` (`id` INT NOT NULL AUTO_INCREMENT , `nome` VARCHAR(100) NOT NULL , `email` VARCHAR(100) NOT NULL , `senha` VARCHAR(100) NOT NULL , `telefone` VARCHAR(20) NOT NULL , `permissao` INT NOT NULL DEFAULT '0' , `data_cadastro` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `gc_burguer`.`salvos` (`id_salvo` INT NOT NULL AUTO_INCREMENT , `id_usuario` INT NOT NULL , `id_produto` INT NOT NULL , `data` DATE NOT NULL , PRIMARY KEY (`id_salvo`)) ENGINE = InnoDB;
+
+
+CREATE TABLE `gc_burguer`.`reservas` (`id` INT NOT NULL AUTO_INCREMENT , `id_usuario` INT NOT NULL , `data_reserva` DATE NOT NULL , `horario` TIME NOT NULL , `quantidade` INT NOT NULL , `mesa` VARCHAR(50) NOT NULL DEFAULT 'Aguardando confirmacao' , `status` INT NOT NULL DEFAULT '1' , `data_cadastro` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `gc_burguer`.`produtos` (`id` INT NOT NULL AUTO_INCREMENT , `id_categoria` INT NOT NULL , `categoria` VARCHAR(100) NOT NULL , `nome` VARCHAR(100) NOT NULL , `nome_produto` VARCHAR(100) NOT NULL , `descricao` TEXT NOT NULL , `imagem` VARCHAR(200) NOT NULL , `valor` VARCHAR(10) NOT NULL , `data_cadastro` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `gc_burguer`.`informacoes_hamburgueiria` (`id` INT NOT NULL AUTO_INCREMENT , `horario_inicio` TIME NOT NULL , `horario_fim` TIME NOT NULL , `endereco` TEXT NOT NULL , `capacidade` INT NOT NULL , `mesas` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `gc_burguer`.`categoria` (`id_categoria` INT NOT NULL AUTO_INCREMENT , `categoria` VARCHAR(100) NOT NULL , `nome_categoria` VARCHAR(100) NOT NULL , `img` VARCHAR(200) NOT NULL , `data_cadastro` DATE NOT NULL , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
+
+
+INSERT INTO `informacoes_hamburgueiria` (`id`, `horario_inicio`, `horario_fim`, `endereco`, `capacidade`, `mesas`) VALUES ('1', '18:00:00', '00:00:00', 'Avenida Paulista 2222', '50', '12');
+
+UPDATE `usuarios` SET `permissao` = '1' WHERE `usuarios`.`id` = 1;
+
+CREATE TABLE `gc_burguer`.`avaliacoes` (`id` INT NOT NULL , `id_usuario` INT NOT NULL , `nota` INT NOT NULL , `comentario` TEXT NOT NULL , `data_avaliacao` DATE NOT NULL ) ENGINE = InnoDB;

@@ -58,6 +58,19 @@
     font-size: 18px;
 }
 
+.meus_dados_box{
+    max-width: 95%;
+    width: 700px;
+}
+
+.meus_dados div{
+    display: flex;
+}
+
+.meus_dados div label, .meus_dados div input{
+    flex: 1;
+}
+
 /* Cadastro */
 
 .cadastro{
@@ -70,4 +83,53 @@
 
 .cadastro input, .cadastro label{
     flex: 1;
+}
+
+/* Meus dados */
+
+.div_excluir{
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.175);
+}
+
+.box-excluir{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.251);
+    padding: 20px;
+    text-align: center;
+}
+
+.box-excluir div{
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box-excluir input[name=senha]{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.514);
+    border: 1px solid #ccc;
+}
+
+.botoes_excluir{
+    border: none;
+    color: white;
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1;
+    margin: 5px;
 }

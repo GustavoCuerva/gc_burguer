@@ -41,6 +41,9 @@
         $delete_produtos = $conexao->prepare("DELETE FROM produtos WHERE id = ?");
         $delete_produtos->execute(array($id_produto));
 
+        $delete_salvos = $conexao->prepare("DELETE FROM salvos WHERE id_produto = ?");
+        $delete_salvos->execute(array($id_produto));
+
         $_SESSION["msg"] = "<p style='color: green'>Produto excluido com sucesso!</p>";
         header("location: ../admin/admin_produtos.php?c=1");
 

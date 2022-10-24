@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="css/login.css">
     <title>Hamburgueria GC</title>
 </head>
-<body class="body_login"">
+<body class="body_login">
     
+    <div class="fechar" onclick="mostrar_opc_usuario()" style="display: none;"></div>
     <header class="cabecalho" style="border-radius: 0;">
         <nav class="menu">
             
@@ -60,7 +61,18 @@
                 <?php
                     if (isset($_SESSION['usuario'])) {//Está logado
                         ?>
-                    <a><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                    <a onclick="mostrar_opc_usuario()"><img src="icons/user-svgrepo-com.svg" alt=""></a>
+                    <div class="opc_usuario" style="display: none;">
+                    <?php
+                        if ($_SESSION['permissao'] == 1) {
+                            ?>
+                        <a href="admin/painel.php">Painel admin</a>
+                            <?php
+                        }
+                    ?>
+                        <a href="meus_dados.php">Meus dados</a>
+                        <a href="processos/sair.php">Sair</a>
+                    </div>
                         <?php
                     }else{//Não está logado
                         ?>

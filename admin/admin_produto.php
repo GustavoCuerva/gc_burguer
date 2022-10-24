@@ -162,7 +162,7 @@
                         if (isset($get['p'])) {
                     ?>
                     <div>
-                        <a onclick="alerta_excluir(3)" class="btn del" style="color: white; cursor: pointer;">Excluir</a>
+                        <a onclick="alerta_excluir(3)" class="btn del" style="color: white; cursor: pointer; background-color: #ff0000d9;">Excluir</a>
                     </div>
 
                     <?php

@@ -53,6 +53,33 @@ input[type=submit]{
   border-radius: 4px;
 }
 
+.opc_usuario{
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  margin-top: 130px;
+  z-index: 4;
+}
+
+.opc_usuario a{
+  padding: 10px 5px;
+  text-decoration: none;
+  color: #000;
+  transition: 0.5s;
+  border-radius: 20px;
+}
+
+.fechar{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+}
+
 .logo {
   width: 170px;
   height: 170px;

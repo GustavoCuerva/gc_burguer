@@ -57,6 +57,9 @@
 
             $delete_produtos = $conexao->prepare("DELETE FROM produtos WHERE id = ?");
             $delete_produtos->execute(array($value['id']));   
+
+            $delete_salvos = $conexao->prepare("DELETE FROM salvos WHERE id_produto = ?");
+            $delete_salvos->execute(array($value['id']));
         }
 
         $_SESSION["msg"] = "<p style='color: green'>Categoria excluida com sucesso!</p>";
