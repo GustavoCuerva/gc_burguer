@@ -75,7 +75,10 @@
             </div>
 
             <div class="menu-usuario">
-                <input type="search" placeholder="Pesquisar" name="pesquisa" class="pesquisar">
+                <form action="pesquisa.php" method="post" class="pesquisar">
+                    <input type="search" placeholder="Pesquisar" name="pesquisa">
+                    <button><img src="icons/search-svgrepo-com.svg" alt=""></button>
+                </form>
                 <a><img src="icons/search-svgrepo-com.svg" class="lupa" alt=""></a>
                 <a href="favoritos.php"><img src="icons/favorite-svgrepo-com.svg" alt=""></a>
                 <?php

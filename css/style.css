@@ -133,14 +133,41 @@ input[type=submit]{
 }
 
 .pesquisar{
-    font-size: 15px;
-    color: rgb(129, 129, 129);
+    background-color: white;
     height: 50px;
     border-radius: 20px;
     border: none;
     width: 0px;
     transition: 1s;
     z-index: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.pesquisar input[name=pesquisa]{
+  font-size: 15px;
+  color: rgb(129, 129, 129);
+  height: 50px;
+  border: none;
+}
+
+.pesquisar button{
+  background-color: #0892b8;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pesquisar img{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 /* Banner */

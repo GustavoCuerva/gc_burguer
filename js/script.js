@@ -53,11 +53,11 @@ var pesquisa = document.querySelector(".pesquisar");
 var lupa = document.querySelector(".lupa");
 
 lupa.addEventListener("click", () => {
-  if (pesquisa.style.width == "200px") {
+  if (pesquisa.style.width == "230px") {
     pesquisa.style.width = "0px";
     pesquisa.style.padding = "0px";
   } else {
-    pesquisa.style.width = "200px";
+    pesquisa.style.width = "230px";
     pesquisa.style.padding = "5px";
   }
 });
