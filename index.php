@@ -77,7 +77,7 @@
             </div>
         </div><!--Menu inferior-->
         <div class="banner">
-                <h2>COMBOS A PARTIR  <br>R$28,00</h2>
+                <h2>COMBOS A PARTIR  <br>R$29,99</h2>
                 <hr>
                 <img src="icons/hamburger-svgrepo-com.svg" alt="">
         </div><!--Banner--> 
@@ -160,7 +160,7 @@
         <?php
             // Novidades
 
-            $consulta_novidades = $conexao->query('SELECT * FROM produtos ORDER BY data_cadastro, id ASC LIMIT 2');
+            $consulta_novidades = $conexao->query('SELECT * FROM produtos ORDER BY data_cadastro DESC, id DESC LIMIT 2');
             $novidades = $consulta_novidades->fetchAll(PDO::FETCH_ASSOC);
         ?>
 
@@ -216,6 +216,9 @@
             <div style="max-width: 1200px;" class="swiper mySwiper container depoimentos lista-avaliacoes">
                 <div class="swiper-wrapper content">
                 <?php
+
+                if ($cons_avaliacoes->rowCount()>0) {
+                    // Existe alguma avaliação
                     while ($avaliacao = $cons_avaliacoes->fetch(PDO::FETCH_ASSOC)) {
                         // Percorrendo avaliacoes
                         $check_av = array("","", "", "", "", "");
@@ -228,7 +231,7 @@
                     <div class="swiper-slide card">
                         <div class="card-content">
                         <!-- ESTRLAS -->
-                        <div class="estrelas" style="cursor: default;">
+                        <div class="estrelas" style="cursor: default; display:flex; justify-content: center;">
                             
                             <?php
                                 for ($i=1; $i <= 5 ; $i++) { 
@@ -252,6 +255,18 @@
                     </div>
                         <?php
                     }
+                }else{
+                    ?>
+                        <div class="swiper-slide card">
+                            <div class="card-content">
+                                <p class="username"><strong>SISTEMA:</strong></p>
+                                <p class="comentario">Seja o primeiro a nos avaliar!</p>
+                                <p class="comentario">Faça seu login e digite o que achou de nossos serviços e instalações, queremos saber a sua opnião</p>
+                                <p class="comentario">Caso ainda não tenha usufruido de nossos serviços, agende um horário para você e a familia na página reservas.</p>
+                            </div>
+                        </div>
+                    <?php
+                }
 
                     
                 ?>
@@ -334,8 +349,8 @@
         slidesPerGroup: 1,
         loop: true,
         speed:1000,
-        // autoplay: true,
-        // autoplaySpeed: 3000,
+        autoplay: true,
+        autoplaySpeed: 3000,
         loopFillGroupWithBlank: true,
             pagination:{
                 el: '.swiper-pagination',

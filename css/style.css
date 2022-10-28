@@ -560,4 +560,9 @@ footer{
     margin-bottom: 10px;
   }
 
+  /* Carrocel slide de avaliações */
+  .secao_slide{
+    width: 100%;
+  }
+
 }
