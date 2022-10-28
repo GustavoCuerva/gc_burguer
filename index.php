@@ -9,6 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Arquivo das estrelas -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- SWIPER Carrocel -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+
     <link rel="stylesheet" href="css/style.css">
     <title>Hamburgueria GC</title>
 </head>
@@ -178,40 +184,119 @@
         </section><!--Novidades-->
 
         <section class="avaliacoes destaque">
+
+        <?php
+
+            // AVALIAÇÃO DO USUARIO
+
+            $check = array("","", "", "", "", "");
+            $comentario = "";
+
+            if (isset($_SESSION['usuario'])) {//Está logado
+                $cons_minhaavaliacao = $conexao->query("SELECT * FROM avaliacoes WHERE id_usuario = ".$_SESSION['id']);
+
+                if ($cons_minhaavaliacao->rowCount()>0) {
+                    $minha_avaliacao = $cons_minhaavaliacao->fetch(PDO::FETCH_ASSOC);
+
+                    $nota = $minha_avaliacao['nota'];
+                    $check[$nota] = "checked";
+
+                    $comentario = $minha_avaliacao['comentario'];
+                }
+            }
+
+            // Todas as avaliacoes
+
+            $cons_avaliacoes = $conexao->query("SELECT * FROM avaliacoes");
+        ?>
+
             <h2>Avaliações</h2>
-            <div class="lista-avaliacoes">
-                <div class="avaliacao">
-                    <img src="icons/stars-svgrepo-com.svg" alt="">
-                    <p class="username"><strong>User 1</strong></p>
-                    <p class="comentario">O hambúrguer é bom, a batata poderia ser mais crocante. Tempo de espera é de aproximadamente 15 minutos. Não verifiquei se existe estacionamento, mas na rua tem bastante espaço para parar o carro.</p>
-                </div>
 
-                <div class="avaliacao">
-                    <img src="icons/stars-svgrepo-com.svg" alt="">
-                    <p class="username"><strong>User 2</strong></p>
-                    <p class="comentario">O hambúrguer é bom, a batata poderia ser mais crocante. Tempo de espera é de aproximadamente 15 minutos. Não verifiquei se existe estacionamento, mas na rua tem bastante espaço para parar o carro.</p>
-                </div>
+            <section class="secao_slide">
+            <div style="max-width: 1200px;" class="swiper mySwiper container depoimentos lista-avaliacoes">
+                <div class="swiper-wrapper content">
+                <?php
+                    while ($avaliacao = $cons_avaliacoes->fetch(PDO::FETCH_ASSOC)) {
+                        // Percorrendo avaliacoes
+                        $check_av = array("","", "", "", "", "");
+                        $check_av[$avaliacao['nota']] = "checked";
 
-                <div class="avaliacao">
-                    <img src="icons/stars-svgrepo-com.svg" alt="">
-                    <p class="username"><strong>User 3</strong></p>
-                    <p class="comentario">Uma dica: o segundo(se acontecer) pedido poderia ser feito na mesa sentado, pois já estamos lá msm, mas não.. tem q sair da mesa, pegar fila e fazer o pedido, dá um máquininha na mão do Garçon e já adiantaria o lado do Cliente... mas super recomendo!</p>
-                </div>
+                        // User
+                        $consulta_user = $conexao->query("SELECT * FROM usuarios WHERE id = ".$avaliacao['id_usuario']);
+                        $user = $consulta_user->fetch(PDO::FETCH_ASSOC);
+                        ?>
+                    <div class="swiper-slide card">
+                        <div class="card-content">
+                        <!-- ESTRLAS -->
+                        <div class="estrelas" style="cursor: default;">
+                            
+                            <?php
+                                for ($i=1; $i <= 5 ; $i++) { 
+                                    if($i<= $avaliacao['nota']){
+                                        $cor = "#FC0";
+                                    }else{
+                                        $cor = "#CCC";
+                                    }
+                                    ?>
+                                <label><i class="fa" style="cursor: default; color: <?=$cor?>;"></i></label>
+                                    <?php
+                                }
+                            ?>
+                            <br><br>
+                            
+                        </div><!-- ESTRELAS -->
 
-                <div class="avaliacao">
-                    <img src="icons/stars-svgrepo-com.svg" alt="">
-                    <p class="username"><strong>User 4</strong></p>
-                    <p class="comentario">Lugar lindo e rústico, ótimo atendimento, e os lanches caprichados e deliciosos! Super recomendo!</p>
+                        <p class="username"><strong><?=$user['nome']?></strong></p>
+                        <p class="comentario"><?=$avaliacao['comentario']?></p>
+                        </div>
+                    </div>
+                        <?php
+                    }
+
+                    
+                ?>
                 </div>
             </div><!--Avaliações-->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+            </section>
         </section><!--Avaliações-->
 
-        <section class="avaliar destaque">
+        <section class="avaliar destaque" id="avaliar">
             <h2>Envie-nos sua opnião</h2>
-            <form action="#" method="post">
-                <input type="range" class="range" name="avaliacao">
-                <textarea name="comentario" id="comentario" placeholder="Digite aqui seu comentário..."></textarea>
-                <input type="button" value="ENVIAR" class="enviar">
+            <form action="processos/proc_avaliacoes.php" method="post">
+                
+            <!-- ESTRLAS -->
+                <div class="estrelas">
+                    <input type="radio" id="vazio" name="estrela" value="" checked>
+                    
+                    <?php
+                        for ($i=1; $i <= 5 ; $i++) { 
+                            ?>
+                        <label for="estrela_<?=$i?>"><i class="fa check"></i></label>
+                        <input type="radio" id="estrela_<?=$i?>" name="estrela" value="<?=$i?>" <?=$check[$i]?>>
+                            <?php
+                        }
+                    ?>
+                    <br><br>
+                    
+                </div><!-- ESTRELAS -->
+
+                <?php
+                    include("processos/msg.php");
+                ?>
+
+                <textarea name="comentario" id="comentario" placeholder="Digite aqui seu comentário..." required><?=$comentario?></textarea>
+                <input type="submit" value="ENVIAR" name="Enviar" class="enviar">
+                <?php
+                    if ($comentario != "") {
+                        ?>
+                    <input type="submit" value="EXCLUIR" name="Excluir" class="enviar excluir_av" style="background-color: #ff0001bd; display:none;">
+                    <a style="cursor: pointer; color: red;" onclick="alerta_avaliacao()">Excluir avaliação</a>
+                        <?php
+                    }
+                ?>
             </form>
         </section><!--Avaliar-->
     </main><!--Corpor-->
@@ -239,5 +324,38 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <!-- SWIPER CARROCEL -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+        slidesPreview: 1,
+        spaceBetween:30,
+        slidesPerGroup: 1,
+        loop: true,
+        speed:1000,
+        // autoplay: true,
+        // autoplaySpeed: 3000,
+        loopFillGroupWithBlank: true,
+            pagination:{
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            effect: "coverflow", 
+            grabCursor: false,
+            centeredSlides: true, 
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 0,
+                modifier: 0,
+                slideShadows: true
+            },
+        });
+    </script>
 </body>
 </html>

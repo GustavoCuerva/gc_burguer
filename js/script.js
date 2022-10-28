@@ -148,3 +148,14 @@ function mostrar_excluir() {
     del.style.display = 'none';
   }
 }
+
+function alerta_avaliacao() {
+  var excluir = document.querySelector(".excluir_av");
+
+  if (excluir.style.display == 'none') {
+    alert("Essa ação não poderá ser desfeita, para prossegir clique em excluir");
+    excluir.style.display = 'block';
+  }else{
+    excluir.style.display = 'none';  
+  }
+}

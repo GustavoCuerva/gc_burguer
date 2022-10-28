@@ -326,6 +326,10 @@ main hr{
 
 .avaliacoes{
   background-color: rgb(252, 252, 252);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .lista-avaliacoes{
@@ -333,20 +337,7 @@ main hr{
   flex-wrap: wrap;
 }
 
-.avaliacao img{
-  width: 120px;
-}
-
-.avaliacao{
-  flex: 1;
-  margin: 20px;
-  min-width: 300px;
-  background-color: #ffffff;
-  padding: 0 20px 20px 20px;
-  border-radius: 20px;
-}
-
-.avaliacao p.comentario{
+.card p.comentario{
   text-align: left;
 }
 
@@ -373,6 +364,78 @@ main hr{
   padding: 20px;
   font-size: 15px;
   color: #464646;
+}
+
+
+/* SWIPER Slide */
+
+.secao_slide{
+  position: relative;
+  height: auto;
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+
+.swiper{
+  width: 1300px;
+  padding: 0 25%;
+}
+
+.card{
+  position: relative;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+section .card{
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px;
+  float: left;
+  background-color:white;
+  padding:15px;
+  border-radius:10px;
+}
+
+section.depoimentos{
+  padding:40px 0;
+}
+
+.card img{
+  width: 120px;
+}
+
+.swiper-slide{
+  width: 50px;
+}
+
+/* Estrelas avaliação */
+.estrelas{
+  cursor:pointer;
+}
+
+.estrelas input[type=radio]{
+	display: none;
+}
+
+.estrelas label i.fa{
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.estrelas label i.fa:before{
+	content: '\f005';
+}
+
+.estrelas label i.check:before{
+	content: '\f005';
+	color: #FC0;
+}
+
+.estrelas  input[type=radio]:checked  ~ label i.fa:before{
+	color: #CCC;
 }
 
 .enviar{
