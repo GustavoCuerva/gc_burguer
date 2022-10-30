@@ -31,7 +31,7 @@ As imagens utilizadas nesse projeto junto com os valores de descrição são mer
     . Carrocel de produtos
     . Reservas
         . Contato
-        . Précelecionar lanches
+        . Pré selecionar lanches
     . Pedir produtos
         . Sistema de frete
         . Sistema de pagamentos
