@@ -29,6 +29,9 @@ As imagens utilizadas nesse projeto junto com os valores de descrição são mer
 
 ## Funcionalidades a implementar:
     . Carrocel de produtos
+    . Reservas
+        . Contato
+        . Précelecionar lanches
     . Pedir produtos
         . Sistema de frete
         . Sistema de pagamentos
