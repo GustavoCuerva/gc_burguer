@@ -122,6 +122,8 @@
                     <?php
                         include("processos/msg.php");
 
+                        if (isset($_SESSION['id'])) {
+                            // Usuario logado
                         // VERIFICAR SE JÁ NÃO ESTÁ SALVO
                         $consulta = $conexao->prepare("SELECT * FROM salvos WHERE id_usuario = ".$_SESSION['id']." AND id_produto = ?");
                         $consulta->execute(array($id));
@@ -133,6 +135,11 @@
                         }else{
                             ?>
                         <a href="processos/proc_salvar.php?s=<?=$get['p']?>"><button class="salvar">Salvar</button></a>
+                            <?php
+                        }
+                        }else{
+                            ?>
+                            <a href="login.php"><button class="salvar" style="background-color: #ff9a00">Logar</button></a> 
                             <?php
                         }
                     ?>
